@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class gameManager : MonoBehaviour
 {
     public Text timeText;
-    float time = 0.0f;
+    float time = 60.0f;
 
     public GameObject endText;
     public GameObject card;
@@ -48,10 +48,10 @@ public class gameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        time += Time.deltaTime;
+        time -= Time.deltaTime;
         timeText.text = time.ToString("N2");
 
-        if (time > 30.0f)
+        if (time < 0.0f)
         {
             endText.SetActive(true);
             Time.timeScale = 0.0f;
