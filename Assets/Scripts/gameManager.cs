@@ -10,7 +10,10 @@ public class gameManager : MonoBehaviour
 {
     public Text timeText;
     float time = 60.0f;
-
+    public Text matchCnt;
+    public Text scoreTxt;
+    public Text remainTimeTxt;
+    public GameObject endCanvas;
     public GameObject endText;
     public GameObject card;
     public static gameManager I;
@@ -22,6 +25,8 @@ public class gameManager : MonoBehaviour
     public AudioClip shuffle;
 
     public GameObject NowDifficulty;
+
+    int mCnt = 0;
 
 
     void Awake()
@@ -35,14 +40,14 @@ public class gameManager : MonoBehaviour
         Time.timeScale = 1.0f;
         audioSource.PlayOneShot(shuffle);
 
-        // ³­ÀÌµµ¿¡ µû¸¥ ÀÌ¹ÌÁö °¹¼ö Á¶Á¤
+        // ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         int[] images;
         NowDifficulty = GameObject.Find("NowDifficulty");
         string difficulty = NowDifficulty.GetComponent<nowDifficulty>().difficulty;
 
         if (difficulty == "Easy")
         {
-            images = new int[10]; // Easy ³­ÀÌµµ´Â 10°³ ÀÌ¹ÌÁö
+            images = new int[10]; // Easy ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½ 10ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½
             for (int i = 0; i < images.Length / 2; i++)
             {
                 images[2 * i] = i;
@@ -51,16 +56,16 @@ public class gameManager : MonoBehaviour
         }
         else if (difficulty == "Normal")
         {
-            images = new int[20]; // Normal ³­ÀÌµµ´Â 20°³ ÀÌ¹ÌÁö
+            images = new int[20]; // Normal ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½ 20ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½
             for (int i = 0; i < images.Length / 2; i++)
             {
                 images[2 * i] = i;
                 images[2 * i + 1] = i;
             }
         }
-        else // Hard ¶Ç´Â ±âÅ¸
+        else // Hard ï¿½Ç´ï¿½ ï¿½ï¿½Å¸
         {
-            images = new int[30]; // Hard ³­ÀÌµµ´Â 30°³ ÀÌ¹ÌÁö
+            images = new int[30]; // Hard ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½ 30ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½
             for (int i = 0; i < images.Length / 2; i++)
             {
                 images[2 * i] = i;
@@ -68,10 +73,10 @@ public class gameManager : MonoBehaviour
             }
         }
 
-        // Ä«µå¸¦ ¼¯´Â ¿ø·¡ ÄÚµå
+        // Ä«ï¿½å¸¦ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½
         //images = images.OrderBy(item => Random.Range(-1.0f, 1.0f)).ToArray();
 
-        // Ä«µå¸¦ ¼¯´Â »õ·Î¿î ÄÚµå
+        // Ä«ï¿½å¸¦ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½Úµï¿½
         for (int i = 0; i < images.Length; i++)
         {
             int randomIndex = UnityEngine.Random.Range(0, images.Length);
@@ -81,7 +86,7 @@ public class gameManager : MonoBehaviour
         }
 
 
-        // ³­ÀÌµµº°·Î ´Ù¸¥ Ä«µå ¹èÄ¡
+        // ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ Ä«ï¿½ï¿½ ï¿½ï¿½Ä¡
         if (difficulty == "Easy")
         {
             for (int i = 0; i < 10; i++)
@@ -152,13 +157,17 @@ public class gameManager : MonoBehaviour
 
         if (time < 0.0f)
         {
-            endText.SetActive(true);
+            remainTimeTxt.text = time.ToString("N2");
+            matchCnt.text = mCnt.ToString();
+            scoreTxt.text = (50 - mCnt).ToString();
+            endCanvas.SetActive(true);
             Time.timeScale = 0.0f;
         }
     }
 
     public void isMatched()
     {
+        mCnt += 1;
         string firstCardImage = firstCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite.name;
         string secondCardImage = secondCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite.name;
 
@@ -171,7 +180,10 @@ public class gameManager : MonoBehaviour
             int cardsLeft = GameObject.Find("cards").transform.childCount;
             if (cardsLeft == 2)
             {
-                endText.SetActive(true);
+                remainTimeTxt.text = time.ToString("N2");
+                matchCnt.text = mCnt.ToString();
+                scoreTxt.text = (50 - mCnt + Math.Round(time)).ToString();
+                endCanvas.SetActive(true);
                 Time.timeScale = 0.0f;
             }
         }
