@@ -19,11 +19,17 @@ public class gameManager : MonoBehaviour
     public AudioClip match;
     public AudioClip wrong;
     public AudioClip shuffle;
+    public GameObject NameText;
+    public GameObject FailText;
 
 
     void Awake()
     {
         I = this;
+    }
+    void ShowFail()
+    {
+        FailText.SetActive(false);
     }
 
     // Start is called before the first frame update
@@ -73,6 +79,7 @@ public class gameManager : MonoBehaviour
             audioSource.PlayOneShot(match);
             firstCard.GetComponent<card>().destroyCard();
             secondCard.GetComponent<card>().destroyCard();
+            NameText.SetActive(true);
 
             int cardsLeft = GameObject.Find("cards").transform.childCount;
             if (cardsLeft == 2)
@@ -86,6 +93,8 @@ public class gameManager : MonoBehaviour
             audioSource.PlayOneShot(wrong);
             firstCard.GetComponent<card>().closeCard();
             secondCard.GetComponent<card>().closeCard();
+            FailText.SetActive(true);
+            Invoke("ShowFail", 0.6f);
         }
 
         firstCard = null;
