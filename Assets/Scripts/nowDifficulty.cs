@@ -6,7 +6,7 @@ public class nowDifficulty : MonoBehaviour
 {
     void Awake()
     {
-        DontDestroyOnLoad(gameObject); // ÇöÀç °ÔÀÓ ¿ÀºêÁ§Æ®¸¦ ¾À ÀüÈ¯½Ã¿¡µµ À¯Áö
+        DontDestroyOnLoad(gameObject); // í˜„ì¬ ê²Œì„ ì˜¤ë¸Œì íŠ¸ë¥¼ ì”¬ ì „í™˜ì‹œì—ë„ ìœ ì§€
     }
     public string difficulty;
 }
