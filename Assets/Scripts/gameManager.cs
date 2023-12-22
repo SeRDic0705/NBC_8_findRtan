@@ -32,21 +32,11 @@ public class gameManager : MonoBehaviour
         Time.timeScale = 1.0f;
         audioSource.PlayOneShot(shuffle);
 
-        int[] images = { 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10, 11, 11, 12, 12, 13, 13, 14, 14 };
 
-        images = images.OrderBy(item => Random.Range(-1.0f, 1.0f)).ToArray();
 
-        for ( int i = 0; i < 30; i++)
         {
-            GameObject newCard = Instantiate(card);
-            newCard.transform.parent = GameObject.Find("cards").transform;      
 
-            float x = (i / 6) * 1.3f - 2.6f;
-            float y = (i % 6) * 1.3f - 3.6f;
-            newCard.transform.position = new Vector3(x, y, 0);
 
-            string imageName = "image" + images[i].ToString();
-            newCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(imageName);
         }
     }
 
