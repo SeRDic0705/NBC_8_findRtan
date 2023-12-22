@@ -3,7 +3,15 @@ guid: 554b04a4c81003a44a825d380e703839
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - timeText: {instanceID: 0}
+  - endText: {instanceID: 0}
+  - card: {instanceID: 0}
+  - firstCard: {instanceID: 0}
+  - secondCard: {instanceID: 0}
+  - audioSource: {instanceID: 0}
+  - match: {instanceID: 0}
+  - wrong: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

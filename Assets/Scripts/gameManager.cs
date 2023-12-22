@@ -8,13 +8,17 @@ using UnityEngine.UI;
 public class gameManager : MonoBehaviour
 {
     public Text timeText;
-    float time = 0.0f;
+    float time = 60.0f;
 
     public GameObject endText;
     public GameObject card;
     public static gameManager I;
     public GameObject firstCard;
     public GameObject secondCard;
+    public AudioSource audioSource;
+    public AudioClip match;
+    public AudioClip wrong;
+    public AudioClip shuffle;
 
 
     void Awake()
@@ -26,6 +30,7 @@ public class gameManager : MonoBehaviour
     void Start()
     {
         Time.timeScale = 1.0f;
+        audioSource.PlayOneShot(shuffle);
 
         int[] images = { 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10, 11, 11, 12, 12, 13, 13, 14, 14 };
 
@@ -48,10 +53,10 @@ public class gameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        time += Time.deltaTime;
+        time -= Time.deltaTime;
         timeText.text = time.ToString("N2");
 
-        if (time > 30.0f)
+        if (time < 0.0f)
         {
             endText.SetActive(true);
             Time.timeScale = 0.0f;
@@ -65,6 +70,7 @@ public class gameManager : MonoBehaviour
 
         if (firstCardImage == secondCardImage)
         {
+            audioSource.PlayOneShot(match);
             firstCard.GetComponent<card>().destroyCard();
             secondCard.GetComponent<card>().destroyCard();
 
@@ -77,6 +83,7 @@ public class gameManager : MonoBehaviour
         }
         else
         {
+            audioSource.PlayOneShot(wrong);
             firstCard.GetComponent<card>().closeCard();
             secondCard.GetComponent<card>().closeCard();
         }
