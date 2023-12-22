@@ -27,6 +27,7 @@ public class card : MonoBehaviour
         anim.SetBool("isOpen", true);
         transform.Find("front").gameObject.SetActive(true);
         transform.Find("back").gameObject.SetActive(false);
+        transform.Find("back2").gameObject.SetActive(false);
 
         if (gameManager.I.firstCard == null)
         {
@@ -57,7 +58,7 @@ public class card : MonoBehaviour
     void closeCardInvoke()
     {
         anim.SetBool("isOpen", false);
-        transform.Find("back").gameObject.SetActive(true);
+        transform.Find("back2").gameObject.SetActive(true);
         transform.Find("front").gameObject.SetActive(false);
     }
 }
