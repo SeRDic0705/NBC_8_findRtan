@@ -22,6 +22,7 @@ public class endText : MonoBehaviour
 
     public void retryGame()
     {
-        SceneManager.LoadScene("MainScene");
+        Destroy(GameObject.Find("NowDifficulty"));
+        SceneManager.LoadScene("SelectDifficultyScene");
     }
 }
