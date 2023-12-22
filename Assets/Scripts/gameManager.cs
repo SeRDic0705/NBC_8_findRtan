@@ -1,15 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class gameManager : MonoBehaviour
 {
     public Text timeText;
+    float time = 0.0f;
+
     public GameObject endText;
     public GameObject card;
-    float time;
     public static gameManager I;
     public GameObject firstCard;
     public GameObject secondCard;
@@ -25,21 +27,21 @@ public class gameManager : MonoBehaviour
     {
         Time.timeScale = 1.0f;
 
-        int[] rtans = { 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7 };
+        int[] images = { 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10, 11, 11, 12, 12, 13, 13, 14, 14, 15, 15 };
 
-        rtans = rtans.OrderBy(item => Random.Range(-1.0f, 1.0f)).ToArray();
+        images = images.OrderBy(item => Random.Range(-1.0f, 1.0f)).ToArray();
 
-        for ( int i = 0; i < 16; i++)
+        for ( int i = 0; i < 30; i++)
         {
             GameObject newCard = Instantiate(card);
             newCard.transform.parent = GameObject.Find("cards").transform;      
 
-            float x = (i / 4) * 1.4f - 2.1f;
-            float y = (i % 4) * 1.4f - 3.0f;
+            float x = (i / 6) * 1.3f - 2.6f;
+            float y = (i % 6) * 1.3f - 3.6f;
             newCard.transform.position = new Vector3(x, y, 0);
 
-            string rtanName = "rtan" + rtans[i].ToString();
-            newCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(rtanName);
+            string imageName = "image" + images[i].ToString();
+            newCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(imageName);
         }
     }
 
@@ -48,6 +50,12 @@ public class gameManager : MonoBehaviour
     {
         time += Time.deltaTime;
         timeText.text = time.ToString("N2");
+
+        if (time > 30.0f)
+        {
+            endText.SetActive(true);
+            Time.timeScale = 0.0f;
+        }
     }
 
     public void isMatched()
