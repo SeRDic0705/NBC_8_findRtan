@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,10 @@ using UnityEngine.UI;
 
 public class gameManager : MonoBehaviour
 {
+    public Text matchCnt;
+    public Text scoreTxt;
+    public Text remainTimeTxt;
+    public GameObject endCanvas;
     public Text timeText;
     float time = 0.0f;
 
@@ -16,6 +21,7 @@ public class gameManager : MonoBehaviour
     public GameObject firstCard;
     public GameObject secondCard;
 
+    int mCnt = 0;
 
     void Awake()
     {
@@ -29,7 +35,7 @@ public class gameManager : MonoBehaviour
 
         int[] images = { 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10, 11, 11, 12, 12, 13, 13, 14, 14, 15, 15 };
 
-        images = images.OrderBy(item => Random.Range(-1.0f, 1.0f)).ToArray();
+        images = images.OrderBy(item => UnityEngine.Random.Range(-1.0f, 1.0f)).ToArray();
 
         for ( int i = 0; i < 30; i++)
         {
@@ -53,13 +59,18 @@ public class gameManager : MonoBehaviour
 
         if (time > 30.0f)
         {
-            endText.SetActive(true);
             Time.timeScale = 0.0f;
+            matchCnt.text = mCnt.ToString();
+            remainTimeTxt.text = time.ToString("N2");
+            matchCnt.text = mCnt.ToString();
+            scoreTxt.text = (100 - mCnt + (int)Math.Round(time) * 5).ToString();
+            endCanvas.SetActive(true);
         }
     }
 
     public void isMatched()
     {
+        mCnt += 1;
         string firstCardImage = firstCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite.name;
         string secondCardImage = secondCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite.name;
 
@@ -71,8 +82,12 @@ public class gameManager : MonoBehaviour
             int cardsLeft = GameObject.Find("cards").transform.childCount;
             if (cardsLeft == 2)
             {
-                endText.SetActive(true);
                 Time.timeScale = 0.0f;
+                matchCnt.text = mCnt.ToString();
+                remainTimeTxt.text = time.ToString("N2");
+                matchCnt.text = mCnt.ToString();
+                scoreTxt.text = (50 - mCnt + (int)Math.Round(time) * 5).ToString();
+                endCanvas.SetActive(true);
             }
         }
         else

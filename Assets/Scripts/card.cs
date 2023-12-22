@@ -38,7 +38,7 @@ public class card : MonoBehaviour
 
     public void destroyCard()
     {
-        Invoke("destroyCardInvoke", 0.5f);
+        Invoke("destroyCardInvoke", 1.0f);
     }
 
     void destroyCardInvoke()
@@ -48,7 +48,7 @@ public class card : MonoBehaviour
 
     public void closeCard()
     {
-        Invoke("closeCardInvoke", 0.5f);
+        Invoke("closeCardInvoke", 1.0f);
     }
 
     void closeCardInvoke()
