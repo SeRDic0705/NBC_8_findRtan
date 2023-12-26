@@ -119,7 +119,7 @@ public class gameManager : MonoBehaviour
                 }
                 newCard.transform.position = new Vector3(x, y, 0);
 
-                string spriteName = sprites[images[i]].name;
+                var spriteName = sprites[images[i]].name;
                 newCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(spriteName);
             }
         }
@@ -134,7 +134,7 @@ public class gameManager : MonoBehaviour
                 float y = (i % 5) * 1.3f - 3.6f;
                 newCard.transform.position = new Vector3(x, y, 0);
 
-                string spriteName = sprites[images[i]].name;
+                var spriteName = sprites[images[i]].name;
                 newCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(spriteName);
             }
 
@@ -186,7 +186,7 @@ public class gameManager : MonoBehaviour
             secondCard.GetComponent<card>().destroyCard();
             NTxt.SetActive(true);
             nameText.text = firstCardImage.Substring(0, firstCardImage.Length - 1);
-            Invoke("Textfalse", 0.5f);
+            Invoke("Textfalse", 0.8f);
             int cardsLeft = GameObject.Find("cards").transform.childCount;
             if (cardsLeft == 2)
             {
@@ -203,7 +203,7 @@ public class gameManager : MonoBehaviour
             firstCard.GetComponent<card>().closeCard();
             secondCard.GetComponent<card>().closeCard();
             FailText.SetActive(true);
-            Invoke("Textfalse", 0.5f);
+            Invoke("Textfalse", 0.8f);
         }
 
         firstCard = null;
