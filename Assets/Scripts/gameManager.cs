@@ -23,7 +23,10 @@ public class gameManager : MonoBehaviour
     public AudioClip match;
     public AudioClip wrong;
     public AudioClip shuffle;
-
+    public Text nameText;
+    public GameObject NTxt;
+    public GameObject FailText;
+    public Sprite[] sprites;
     public GameObject NowDifficulty;
 
     int mCnt = 0;
@@ -32,6 +35,11 @@ public class gameManager : MonoBehaviour
     void Awake()
     {
         I = this;
+    }
+    void Textfalse()
+    {
+        FailText.SetActive(false);
+        NTxt.SetActive(false);
     }
 
     // Start is called before the first frame update
@@ -111,8 +119,8 @@ public class gameManager : MonoBehaviour
                 }
                 newCard.transform.position = new Vector3(x, y, 0);
 
-                string imageName = "image" + images[i].ToString();
-                newCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(imageName);
+                string spriteName = sprites[images[i]].name;
+                newCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(spriteName);
             }
         }
         else if (difficulty == "Normal")
@@ -126,8 +134,8 @@ public class gameManager : MonoBehaviour
                 float y = (i % 5) * 1.3f - 3.6f;
                 newCard.transform.position = new Vector3(x, y, 0);
 
-                string imageName = "image" + images[i].ToString();
-                newCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(imageName);
+                string spriteName = sprites[images[i]].name;
+                newCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(spriteName);
             }
 
         }
@@ -142,8 +150,8 @@ public class gameManager : MonoBehaviour
                 float y = (i % 6) * 1.3f - 3.6f;
                 newCard.transform.position = new Vector3(x, y, 0);
 
-                string imageName = "image" + images[i].ToString();
-                newCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(imageName);
+                var spriteName = sprites[images[i]].name;
+                newCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(spriteName);
             }
         }
 
@@ -176,7 +184,9 @@ public class gameManager : MonoBehaviour
             audioSource.PlayOneShot(match);
             firstCard.GetComponent<card>().destroyCard();
             secondCard.GetComponent<card>().destroyCard();
-
+            NTxt.SetActive(true);
+            nameText.text = firstCardImage.Substring(0, firstCardImage.Length - 1);
+            Invoke("Textfalse", 0.5f);
             int cardsLeft = GameObject.Find("cards").transform.childCount;
             if (cardsLeft == 2)
             {
@@ -192,6 +202,8 @@ public class gameManager : MonoBehaviour
             audioSource.PlayOneShot(wrong);
             firstCard.GetComponent<card>().closeCard();
             secondCard.GetComponent<card>().closeCard();
+            FailText.SetActive(true);
+            Invoke("Textfalse", 0.5f);
         }
 
         firstCard = null;

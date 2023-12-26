@@ -28,20 +28,20 @@ public class selectDifficulty : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // °¢ ³­ÀÌµµº° Á¡¼ö ºÒ·¯¿À±â
+        // ê° ë‚œì´ë„ë³„ ì ìˆ˜ ë¶ˆëŸ¬ì˜¤ê¸°
         easyScore = PlayerPrefs.GetFloat("EasyScore", 0f);
         normalScore = PlayerPrefs.GetFloat("NormalScore", 0f);
         hardScore = PlayerPrefs.GetFloat("HardScore", 0f);
 
-        // °¢ ³­ÀÌµµº° Á¡¼ö ÅØ½ºÆ®¿¡ ¹İ¿µ
+        // ê° ë‚œì´ë„ë³„ ì ìˆ˜ í…ìŠ¤íŠ¸ì— ë°˜ì˜
         EasyScoreText.text = easyScore.ToString("F2") + " pt";
         NormalScoreText.text = normalScore.ToString("F2") + " pt";
         HardScoreText.text = hardScore.ToString("F2") + " pt";
 
-        // "NowDifficulty" GameObject¸¦ Ã£¾Æ ÀúÀåÇÑ´Ù
+        // "NowDifficulty" GameObjectë¥¼ ì°¾ì•„ ì €ì¥í•œë‹¤
         NowDifficulty = GameObject.Find("NowDifficulty");
 
-        // ¹öÆ° »ö ¹İ¿µ
+        // ë²„íŠ¼ ìƒ‰ ë°˜ì˜
         if (easyScore < canNormal)
         {
             //Button buttonComponent = NormalBtn.GetComponent<Button>();
@@ -52,7 +52,7 @@ public class selectDifficulty : MonoBehaviour
             NormalColors.selectedColor = Color.gray;
             NormalBtn.colors = NormalColors;
             NormalScoreImg.color = Color.gray;
-            NormalScoreText.text = "Easy "+ canNormal.ToString("F0") + " pt ¡è";
+            NormalScoreText.text = "Easy "+ canNormal.ToString("F0") + " pt â†‘";
         }
         if (normalScore < canHard)
         {
@@ -63,7 +63,7 @@ public class selectDifficulty : MonoBehaviour
             HardColors.selectedColor = Color.gray;
             HardBtn.colors = HardColors;
             HardScoreImg.color = Color.gray;
-            HardScoreText.text = "Normal " + canHard.ToString("F0") + " pt ¡è";
+            HardScoreText.text = "Normal " + canHard.ToString("F0") + " pt â†‘";
         }
 
 
@@ -71,13 +71,13 @@ public class selectDifficulty : MonoBehaviour
 
     public void EasyClick()
     {
-        // Easy ½ºÅ×ÀÌÁö ÁøÀÔ
+        // Easy ìŠ¤í…Œì´ì§€ ì§„ì…
         NowDifficulty.GetComponent<nowDifficulty>().difficulty = "Easy";
         SceneManager.LoadScene("MainScene");
     }
     public void NormalClick()
     {
-        // Easy°¡ {CanNormal}Á¡ ÀÌ»óÀÏ °æ¿ì Normal ÁøÀÔ
+        // Easyê°€ {CanNormal}ì  ì´ìƒì¼ ê²½ìš° Normal ì§„ì…
         if(easyScore > canNormal)
         {
             NowDifficulty.GetComponent<nowDifficulty>().difficulty = "Normal";
@@ -87,7 +87,7 @@ public class selectDifficulty : MonoBehaviour
     }
     public void HardClick()
     {
-        // NormalÀÌ {CanHard}Á¡ ÀÌ»óÀÏ °æ¿ì Hard ÁøÀÔ
+        // Normalì´ {CanHard}ì  ì´ìƒì¼ ê²½ìš° Hard ì§„ì…
         if(normalScore > canHard)
         {
             NowDifficulty.GetComponent<nowDifficulty>().difficulty = "Hard";
