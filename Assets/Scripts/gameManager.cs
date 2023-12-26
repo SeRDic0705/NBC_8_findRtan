@@ -28,6 +28,7 @@ public class gameManager : MonoBehaviour
     public GameObject FailText;
     public Sprite[] sprites;
     public GameObject NowDifficulty;
+    public GameObject audiomanager;
 
     int mCnt = 0;
 
@@ -45,6 +46,7 @@ public class gameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        audiomanager = GameObject.Find("audioManager");
         Time.timeScale = 1.0f;
         audioSource.PlayOneShot(shuffle);
 
@@ -185,7 +187,26 @@ public class gameManager : MonoBehaviour
             firstCard.GetComponent<card>().destroyCard();
             secondCard.GetComponent<card>().destroyCard();
             NTxt.SetActive(true);
-            nameText.text = firstCardImage.Substring(0, firstCardImage.Length - 1);
+            if (int.Parse(firstCardImage.Substring(5)) >= 13)
+            {
+                nameText.text = "이승배";
+            }
+            else if (int.Parse(firstCardImage.Substring(5)) >= 10)
+            {
+                nameText.text = "이도현";
+            }
+            else if (int.Parse(firstCardImage.Substring(5)) >= 7)
+            {
+                nameText.text = "박소이";
+            }
+            else if (int.Parse(firstCardImage.Substring(5)) >= 4)
+            {
+                nameText.text = "김준하";
+            }
+            else if (int.Parse(firstCardImage.Substring(5)) >= 1)
+            {
+                nameText.text = "김성우";
+            }
             Invoke("Textfalse", 0.8f);
             int cardsLeft = GameObject.Find("cards").transform.childCount;
             if (cardsLeft == 2)
