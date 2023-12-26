@@ -31,6 +31,8 @@ public class gameManager : MonoBehaviour
     public GameObject NowDifficulty;
     public audioManager audiomanager;
 
+    int cardCnt = 0;
+
     int mCnt = 0;
     private bool isPlay;
 
@@ -64,6 +66,8 @@ public class gameManager : MonoBehaviour
         if (difficulty == "Easy")
         {
             images = new int[10];
+            cardCnt = 10;
+
             for (int i = 0; i < 5; i++)
             {
                 images[2 * i] = (i * 3) + 1;
@@ -74,6 +78,7 @@ public class gameManager : MonoBehaviour
         else if (difficulty == "Normal")
         {
             images = new int[20];
+            cardCnt = 20;
 
             for (int i = 0; i < 5; i++)
             {
@@ -87,6 +92,8 @@ public class gameManager : MonoBehaviour
         else
         {
             images = new int[30];
+            cardCnt = 30;
+
             for (int i = 0; i < 5; i++)
             {
                 images[6 * i] = (i * 3) + 1;
@@ -190,8 +197,11 @@ public class gameManager : MonoBehaviour
             timeText.color = Color.red;
         }
 
-        if (time < 0.0f)
+        if (time <= 0.0f)
         {
+            // time set zero
+            time = 0f;
+
             remainTimeTxt.text = time.ToString("N2");
             matchCnt.text = mCnt.ToString();
 
@@ -234,6 +244,7 @@ public class gameManager : MonoBehaviour
             audioSource.PlayOneShot(match);
             firstCard.GetComponent<card>().destroyCard();
             secondCard.GetComponent<card>().destroyCard();
+            cardCnt -= 2;
             NTxt.SetActive(true);
             if (int.Parse(firstCardImage.Substring(5)) >= 13)
             {
@@ -256,10 +267,17 @@ public class gameManager : MonoBehaviour
                 nameText.text = "김성우";
             }
             Invoke("Textfalse", 0.8f);
-            int cardsLeft = GameObject.Find("cards").transform.childCount;
-            if (cardsLeft == 2)
+
+            //int cardsLeft = GameObject.Find("cards").transform.childCount;
+            //if (cardsLeft == 2)
+
+            // New type end point (cardLeft==2  ->  cardCnt==0)
+            if (cardCnt == 0)
             {
+                Time.timeScale = 0.0f;
+                timeText.text = time.ToString("N2");
                 remainTimeTxt.text = time.ToString("N2");
+
                 matchCnt.text = mCnt.ToString();
 
                 // calculate score & save
@@ -279,7 +297,6 @@ public class gameManager : MonoBehaviour
                 scoreTxt.text = score.ToString();
 
                 endCanvas.SetActive(true);
-                Time.timeScale = 0.0f;
             }
         }
         else
