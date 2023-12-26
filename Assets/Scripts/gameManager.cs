@@ -177,7 +177,7 @@ public class gameManager : MonoBehaviour
                 float y = (i % 6) * 1.3f - 3.6f;
                 newCard.transform.position = new Vector3(x, y, 0);
 
-                var spriteName = sprites[images[i]].name;
+                var spriteName = sprites[images[i]-1].name;
                 newCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(spriteName);
                 newCard.transform.Find("front").GetComponent<SpriteRenderer>().transform.localScale = new Vector3(1.2f, 1.2f, 0);
             }
