@@ -1593,9 +1593,9 @@ MonoBehaviour:
   EasyScoreImg: {fileID: 255124606}
   NormalScoreImg: {fileID: 1806738486}
   HardScoreImg: {fileID: 423648776}
-  audiomanger: {fileID: 0}
+  audiomanager: {fileID: 0}
   canNormal: -1
-  canHard: 15
+  canHard: 40
   NowDifficulty: {fileID: 0}
 --- !u!4 &2127106815
 Transform:

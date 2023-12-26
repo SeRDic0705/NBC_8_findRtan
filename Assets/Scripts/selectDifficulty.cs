@@ -36,9 +36,9 @@ public class selectDifficulty : MonoBehaviour
         hardScore = PlayerPrefs.GetFloat("HardScore", 0f);
 
         // 각 난이도별 점수 텍스트에 반영
-        EasyScoreText.text = easyScore.ToString("F2") + " pt";
-        NormalScoreText.text = normalScore.ToString("F2") + " pt";
-        HardScoreText.text = hardScore.ToString("F2") + " pt";
+        EasyScoreText.text = easyScore.ToString("F0") + " pt";
+        NormalScoreText.text = normalScore.ToString("F0") + " pt";
+        HardScoreText.text = hardScore.ToString("F0") + " pt";
 
         // "NowDifficulty" GameObject를 찾아 저장한다
         NowDifficulty = GameObject.Find("NowDifficulty");
