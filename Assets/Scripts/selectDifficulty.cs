@@ -15,6 +15,7 @@ public class selectDifficulty : MonoBehaviour
     public Image EasyScoreImg;
     public Image NormalScoreImg;
     public Image HardScoreImg;
+    public GameObject audiomanager;
 
     public float canNormal;
     public float canHard;
@@ -28,6 +29,7 @@ public class selectDifficulty : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        audiomanager = GameObject.Find("audioManager");
         // 각 난이도별 점수 불러오기
         easyScore = PlayerPrefs.GetFloat("EasyScore", 0f);
         normalScore = PlayerPrefs.GetFloat("NormalScore", 0f);
@@ -71,6 +73,7 @@ public class selectDifficulty : MonoBehaviour
 
     public void EasyClick()
     {
+        audiomanager.GetComponent<audioManager>().ChangeBGM(1);
         // Easy 스테이지 진입
         NowDifficulty.GetComponent<nowDifficulty>().difficulty = "Easy";
         SceneManager.LoadScene("MainScene");
@@ -80,6 +83,7 @@ public class selectDifficulty : MonoBehaviour
         // Easy가 {CanNormal}점 이상일 경우 Normal 진입
         if(easyScore > canNormal)
         {
+            audiomanager.GetComponent<audioManager>().ChangeBGM(2);
             NowDifficulty.GetComponent<nowDifficulty>().difficulty = "Normal";
             SceneManager.LoadScene("MainScene");
         }
@@ -90,6 +94,7 @@ public class selectDifficulty : MonoBehaviour
         // Normal이 {CanHard}점 이상일 경우 Hard 진입
         if(normalScore > canHard)
         {
+            audiomanager.GetComponent<audioManager>().ChangeBGM(3);
             NowDifficulty.GetComponent<nowDifficulty>().difficulty = "Hard";
             SceneManager.LoadScene("MainScene");
         }
