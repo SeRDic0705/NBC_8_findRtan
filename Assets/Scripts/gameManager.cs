@@ -56,15 +56,15 @@ public class gameManager : MonoBehaviour
         NowDifficulty = GameObject.Find("NowDifficulty");
         string difficulty = NowDifficulty.GetComponent<nowDifficulty>().difficulty;
 
+
         // Easy : 10 Cards(5 Types)
         if (difficulty == "Easy")
         {
             images = new int[10];
-            for (int i = 0; i < images.Length / 2; i++)
+            for (int i = 0; i < 5; i++)
             {
-                int randomValue = UnityEngine.Random.Range(0, 3);
-                images[2 * i] = i + randomValue;
-                images[2 * i + 1] = i + randomValue;
+                images[2 * i] = (i * 3) + 1;
+                images[2 * i + 1] = (i * 3) + 1;
             }
         }
         // Normal : 20 Cards(10 Types)
@@ -72,31 +72,26 @@ public class gameManager : MonoBehaviour
         {
             images = new int[20];
 
-            int value = 0;
-
-            for (int i = 0; i < images.Length / 2; i++)
+            for (int i = 0; i < 5; i++)
             {
-                images[2 * i] = value;
-                images[2 * i + 1] = value;
-
-                if (value == 1 || value == 4 || value == 7 || value == 10 || value == 13)
-                {
-                    value += 2;
-                }
-                else
-                {
-                    value += 1;
-                }
+                images[4 * i] = (i * 3) + 1;
+                images[4 * i + 1] = (i * 3) + 1;
+                images[4 * i + 2] = (i * 3) + 2;
+                images[4 * i + 3] = (i * 3) + 2;
             }
         }
         // Hard : 30 Cards(15 Types)
         else
         {
             images = new int[30];
-            for (int i = 0; i < images.Length / 2; i++)
+            for (int i = 0; i < 5; i++)
             {
-                images[2 * i] = i;
-                images[2 * i + 1] = i;
+                images[6 * i] = (i * 3) + 1;
+                images[6 * i + 1] = (i * 3) + 1;
+                images[6 * i + 2] = (i * 3) + 2;
+                images[6 * i + 3] = (i * 3) + 2;
+                images[6 * i + 4] = (i * 3) + 3;
+                images[6 * i + 5] = (i * 3) + 3;
             }
         }
 
@@ -240,7 +235,42 @@ public class gameManager : MonoBehaviour
             {
                 remainTimeTxt.text = time.ToString("N2");
                 matchCnt.text = mCnt.ToString();
-                scoreTxt.text = (50 - mCnt + Math.Round(time)).ToString();
+
+                // calculate score & save
+                int score = (50 - mCnt + (int)Math.Round(time));
+                //if (time > 0.0f)
+                if (true)
+                {
+                    string difficulty = NowDifficulty.GetComponent<nowDifficulty>().difficulty;
+                    if (difficulty == "Easy")
+                    {
+                        float savedScore = PlayerPrefs.GetFloat("EasyScore", 0f);
+                        if (savedScore < score)
+                        {
+                            PlayerPrefs.SetFloat("EasyScore", score);
+                            PlayerPrefs.Save();
+                        }
+                    }
+                    if (difficulty == "Normal")
+                    {
+                        float savedScore = PlayerPrefs.GetFloat("NormalScore", 0f);
+                        if (savedScore < score)
+                        {
+                            PlayerPrefs.SetFloat("NormalScore", score);
+                            PlayerPrefs.Save();
+                        }
+                    }
+                    if (difficulty == "Hard")
+                    {
+                        float savedScore = PlayerPrefs.GetFloat("HardScore", 0f);
+                        if (savedScore < score)
+                        {
+                            PlayerPrefs.SetFloat("HardScore", score);
+                            PlayerPrefs.Save();
+                        }
+                    }
+                }
+                scoreTxt.text = score.ToString();
                 endCanvas.SetActive(true);
                 Time.timeScale = 0.0f;
             }
