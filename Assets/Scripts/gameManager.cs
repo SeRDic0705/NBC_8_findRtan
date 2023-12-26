@@ -28,6 +28,7 @@ public class gameManager : MonoBehaviour
     public GameObject FailText;
     public Sprite[] sprites;
     public GameObject NowDifficulty;
+    public GameObject audiomanager;
 
     int mCnt = 0;
 
@@ -45,6 +46,7 @@ public class gameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        audiomanager = GameObject.Find("audioManager");
         Time.timeScale = 1.0f;
         audioSource.PlayOneShot(shuffle);
 
