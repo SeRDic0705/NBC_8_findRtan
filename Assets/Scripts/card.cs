@@ -27,8 +27,7 @@ public class card : MonoBehaviour
         anim.SetBool("isOpen", true);
         transform.Find("front").gameObject.SetActive(true);
         transform.Find("back").gameObject.SetActive(false);
-        transform.Find("back2").gameObject.SetActive(false);
-
+        
         if (gameManager.I.firstCard == null)
         {
             gameManager.I.firstCard = gameObject;
@@ -42,7 +41,7 @@ public class card : MonoBehaviour
 
     public void destroyCard()
     {
-        Invoke("destroyCardInvoke", 0.5f);
+        Invoke("destroyCardInvoke", 1.0f);
     }
 
     void destroyCardInvoke()
@@ -52,13 +51,13 @@ public class card : MonoBehaviour
 
     public void closeCard()
     {
-        Invoke("closeCardInvoke", 0.5f);
+        Invoke("closeCardInvoke", 1.0f);
     }
 
     void closeCardInvoke()
     {
+        transform.Find("back").GetComponent<SpriteRenderer>().color = new Color(255f / 69f, 170f / 255f, 169f / 255f);
         anim.SetBool("isOpen", false);
-        transform.Find("back2").gameObject.SetActive(true);
         transform.Find("front").gameObject.SetActive(false);
     }
 }
