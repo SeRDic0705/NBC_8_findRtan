@@ -51,32 +51,48 @@ public class gameManager : MonoBehaviour
         Time.timeScale = 1.0f;
         audioSource.PlayOneShot(shuffle);
 
-        // ���̵��� ���� �̹��� ���� ����
+        // Adjusting the Number of Cards According to Difficulty
         int[] images;
         NowDifficulty = GameObject.Find("NowDifficulty");
         string difficulty = NowDifficulty.GetComponent<nowDifficulty>().difficulty;
 
+        // Easy : 10 Cards(5 Types)
         if (difficulty == "Easy")
         {
-            images = new int[10]; // Easy ���̵��� 10�� �̹���
+            images = new int[10];
             for (int i = 0; i < images.Length / 2; i++)
             {
-                images[2 * i] = i;
-                images[2 * i + 1] = i;
+                int randomValue = UnityEngine.Random.Range(0, 3);
+                images[2 * i] = i + randomValue;
+                images[2 * i + 1] = i + randomValue;
             }
         }
+        // Normal : 20 Cards(10 Types)
         else if (difficulty == "Normal")
         {
-            images = new int[20]; // Normal ���̵��� 20�� �̹���
+            images = new int[20];
+
+            int value = 0;
+
             for (int i = 0; i < images.Length / 2; i++)
             {
-                images[2 * i] = i;
-                images[2 * i + 1] = i;
+                images[2 * i] = value;
+                images[2 * i + 1] = value;
+
+                if (value == 1 || value == 4 || value == 7 || value == 10 || value == 13)
+                {
+                    value += 2;
+                }
+                else
+                {
+                    value += 1;
+                }
             }
         }
-        else // Hard �Ǵ� ��Ÿ
+        // Hard : 30 Cards(15 Types)
+        else
         {
-            images = new int[30]; // Hard ���̵��� 30�� �̹���
+            images = new int[30];
             for (int i = 0; i < images.Length / 2; i++)
             {
                 images[2 * i] = i;
@@ -84,10 +100,10 @@ public class gameManager : MonoBehaviour
             }
         }
 
-        // ī�带 ���� ���� �ڵ�
+        // shuffling cards (Before)
         //images = images.OrderBy(item => Random.Range(-1.0f, 1.0f)).ToArray();
 
-        // ī�带 ���� ���ο� �ڵ�
+        // shuffling cards (After)
         for (int i = 0; i < images.Length; i++)
         {
             int randomIndex = UnityEngine.Random.Range(0, images.Length);
@@ -96,8 +112,7 @@ public class gameManager : MonoBehaviour
             images[randomIndex] = temp;
         }
 
-
-        // ���̵����� �ٸ� ī�� ��ġ
+        // Set Card Position & Get sprite : EASY
         if (difficulty == "Easy")
         {
             for (int i = 0; i < 10; i++)
@@ -124,8 +139,10 @@ public class gameManager : MonoBehaviour
 
                 var spriteName = sprites[images[i]].name;
                 newCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(spriteName);
+                newCard.transform.Find("front").GetComponent<SpriteRenderer>().transform.localScale = new Vector3(1.2f, 1.2f, 0);
             }
         }
+        // Set Card Position & Get sprite : Normal
         else if (difficulty == "Normal")
         {
             for (int i = 0; i < 20; i++)
@@ -139,9 +156,11 @@ public class gameManager : MonoBehaviour
 
                 var spriteName = sprites[images[i]].name;
                 newCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(spriteName);
+                newCard.transform.Find("front").GetComponent<SpriteRenderer>().transform.localScale = new Vector3(1.2f, 1.2f, 0);
             }
 
         }
+        // Set Card Position & Get sprite : Hard
         else
         {
             for (int i = 0; i < 30; i++)
@@ -155,9 +174,9 @@ public class gameManager : MonoBehaviour
 
                 var spriteName = sprites[images[i]].name;
                 newCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(spriteName);
+                newCard.transform.Find("front").GetComponent<SpriteRenderer>().transform.localScale = new Vector3(1.2f, 1.2f, 0);
             }
         }
-
     }
 
     // Update is called once per frame

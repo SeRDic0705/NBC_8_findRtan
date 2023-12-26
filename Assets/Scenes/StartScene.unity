@@ -690,7 +690,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 1641707938}
-  bgmusic: {fileID: 8300000, guid: 7651c5c5d33a4fc458f5ad17d7811148, type: 3}
+  Bgmlist:
+  - {fileID: 8300000, guid: 7651c5c5d33a4fc458f5ad17d7811148, type: 3}
+  - {fileID: 8300000, guid: e59895fd95af82a4c8d8651d85570a28, type: 3}
+  - {fileID: 8300000, guid: 0a9d70f1adb744542bd032534e5eb974, type: 3}
+  - {fileID: 8300000, guid: e45454649ee7729429eb74669d8eba14, type: 3}
+  - {fileID: 8300000, guid: b174b2414e591c34ba45f560ed96f77a, type: 3}
 --- !u!4 &1641707940
 Transform:
   m_ObjectHideFlags: 0
