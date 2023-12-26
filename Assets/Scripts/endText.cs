@@ -7,10 +7,12 @@ public class endText : MonoBehaviour
 {
     public AudioSource audioSource;
     public AudioClip gameover;
+    public GameObject audiomanager;
 
     // Start is called before the first frame update
     void Start()
     {
+        audiomanager = GameObject.Find("audioManager");
         audioSource.PlayOneShot(gameover);
     }
 
@@ -22,6 +24,7 @@ public class endText : MonoBehaviour
 
     public void retryGame()
     {
+        audiomanager.GetComponent<audioManager>().ChangeBGM(5);
         Destroy(GameObject.Find("NowDifficulty"));
         SceneManager.LoadScene("SelectDifficultyScene");
     }
