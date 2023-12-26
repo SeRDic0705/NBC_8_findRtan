@@ -28,9 +28,10 @@ public class gameManager : MonoBehaviour
     public GameObject FailText;
     public Sprite[] sprites;
     public GameObject NowDifficulty;
-    public GameObject audiomanager;
+    public audioManager audiomanager;
 
     int mCnt = 0;
+    private bool isPlay;
 
     void Awake()
     {
@@ -45,7 +46,8 @@ public class gameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        audiomanager = GameObject.Find("audioManager");
+        isPlay = false;
+        audiomanager = GameObject.Find("audioManager").GetComponent<audioManager>();
         Time.timeScale = 1.0f;
         audioSource.PlayOneShot(shuffle);
 
@@ -179,6 +181,13 @@ public class gameManager : MonoBehaviour
     {
         time -= Time.deltaTime;
         timeText.text = time.ToString("N2");
+
+        if (!isPlay && time < 20.0f)
+        {
+            isPlay= true;
+            audiomanager.ChangeBGM(4);
+            timeText.color = Color.red;
+        }
 
         if (time < 0.0f)
         {

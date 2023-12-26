@@ -24,7 +24,7 @@ public class endText : MonoBehaviour
 
     public void retryGame()
     {
-        audiomanager.GetComponent<audioManager>().ChangeBGM(5);
+        audiomanager.GetComponent<audioManager>().ChangeBGM(0);
         Destroy(GameObject.Find("NowDifficulty"));
         SceneManager.LoadScene("SelectDifficultyScene");
     }
