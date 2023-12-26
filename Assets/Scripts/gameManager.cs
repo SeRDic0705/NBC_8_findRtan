@@ -115,7 +115,7 @@ public class gameManager : MonoBehaviour
                 newCard.transform.position = new Vector3(x, y, 0);
 
                 string spriteName = sprites[images[i]].name;
-                newCard.transform.Find("Front").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(spriteName);
+                newCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(spriteName);
             }
         }
         else if (difficulty == "Normal")
@@ -130,7 +130,7 @@ public class gameManager : MonoBehaviour
                 newCard.transform.position = new Vector3(x, y, 0);
 
                 string spriteName = sprites[images[i]].name;
-                newCard.transform.Find("Front").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(spriteName);
+                newCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(spriteName);
             }
 
         }
@@ -146,7 +146,7 @@ public class gameManager : MonoBehaviour
                 newCard.transform.position = new Vector3(x, y, 0);
 
                 var spriteName = sprites[images[i]].name;
-                newCard.transform.Find("Front").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(spriteName);
+                newCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(spriteName);
             }
         }
 
