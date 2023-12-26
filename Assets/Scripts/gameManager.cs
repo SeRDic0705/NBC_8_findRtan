@@ -10,7 +10,10 @@ public class gameManager : MonoBehaviour
 {
     public Text timeText;
     float time = 60.0f;
-
+    public Text matchCnt;
+    public Text scoreTxt;
+    public Text remainTimeTxt;
+    public GameObject endCanvas;
     public GameObject endText;
     public GameObject card;
     public static gameManager I;
@@ -25,6 +28,8 @@ public class gameManager : MonoBehaviour
     public GameObject FailText;
     public Sprite[] sprites;
     public GameObject NowDifficulty;
+
+    int mCnt = 0;
 
 
     void Awake()
@@ -160,13 +165,17 @@ public class gameManager : MonoBehaviour
 
         if (time < 0.0f)
         {
-            endText.SetActive(true);
+            remainTimeTxt.text = time.ToString("N2");
+            matchCnt.text = mCnt.ToString();
+            scoreTxt.text = (50 - mCnt).ToString();
+            endCanvas.SetActive(true);
             Time.timeScale = 0.0f;
         }
     }
 
     public void isMatched()
     {
+        mCnt += 1;
         string firstCardImage = firstCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite.name;
         string secondCardImage = secondCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite.name;
 
@@ -181,7 +190,10 @@ public class gameManager : MonoBehaviour
             int cardsLeft = GameObject.Find("cards").transform.childCount;
             if (cardsLeft == 2)
             {
-                endText.SetActive(true);
+                remainTimeTxt.text = time.ToString("N2");
+                matchCnt.text = mCnt.ToString();
+                scoreTxt.text = (50 - mCnt + Math.Round(time)).ToString();
+                endCanvas.SetActive(true);
                 Time.timeScale = 0.0f;
             }
         }
