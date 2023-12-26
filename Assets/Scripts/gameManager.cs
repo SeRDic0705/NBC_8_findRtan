@@ -233,6 +233,8 @@ public class gameManager : MonoBehaviour
             secondCard.GetComponent<card>().closeCard();
             FailText.SetActive(true);
             Invoke("Textfalse", 0.8f);
+            time -= 3.0f;
+
         }
 
         firstCard = null;
