@@ -23,6 +23,15 @@ public class gameManager : MonoBehaviour
 
     public GameObject NowDifficulty;
 
+    // 이미지 리소스 이름 수정에 따라 nameMap 작성
+    private Dictionary<int, string> nameMap = new Dictionary<int, string>
+    {
+        { 0, "김소이" },
+        { 1, "이승배" },
+        { 2, "이도현" },
+        { 3, "김성우" },
+        { 4, "김준하" }
+    };
 
     void Awake()
     {
@@ -39,6 +48,8 @@ public class gameManager : MonoBehaviour
         int[] images;
         NowDifficulty = GameObject.Find("NowDifficulty");
         string difficulty = NowDifficulty.GetComponent<nowDifficulty>().difficulty;
+
+
 
         if (difficulty == "Easy")
         {
@@ -123,7 +134,14 @@ public class gameManager : MonoBehaviour
                 }
                 newCard.transform.position = new Vector3(x, y, 0);
 
-                string imageName = "image" + images[i].ToString();
+                // 기존 스프라이트 이미지 리소스 이름 선정
+                //string imageName = "image" + images[i].ToString();
+
+                // 이미지 리소스 수정에 따른 스프라이트 이름 선정
+                int nameNum = images[i] / 3;
+                int subNum = images[i] % 3 + 1;
+                string imageName = ConvertIntToName(nameNum) + subNum.ToString();
+
                 newCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(imageName);
             }
         }
@@ -138,7 +156,14 @@ public class gameManager : MonoBehaviour
                 float y = (i % 5) * 1.3f - 3.6f;
                 newCard.transform.position = new Vector3(x, y, 0);
 
-                string imageName = "image" + images[i].ToString();
+                // 기존 스프라이트 이미지 리소스 이름 선정
+                // string imageName = "image" + images[i].ToString();
+
+                // 이미지 리소스 수정에 따른 스프라이트 이름 선정
+                int nameNum = images[i] / 3;
+                int subNum = images[i] % 3 + 1;
+                string imageName = ConvertIntToName(nameNum) + subNum.ToString();
+
                 newCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(imageName);
             }
 
@@ -154,7 +179,14 @@ public class gameManager : MonoBehaviour
                 float y = (i % 6) * 1.3f - 3.6f;
                 newCard.transform.position = new Vector3(x, y, 0);
 
-                string imageName = "image" + images[i].ToString();
+                // 기존 스프라이트 이미지 리소스 이름 선정
+                // string imageName = "image" + images[i].ToString();
+
+                // 이미지 리소스 수정에 따른 스프라이트 이름 선정
+                int nameNum = images[i] / 3;
+                int subNum = images[i] % 3 + 1;
+                string imageName = ConvertIntToName(nameNum) + subNum.ToString();
+
                 newCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(imageName);
             }
         }
@@ -201,6 +233,17 @@ public class gameManager : MonoBehaviour
 
         firstCard = null;
         secondCard = null;
+    }
+
+    // 이름 매핑 함수
+    string ConvertIntToName(int value)
+    {
+        if (nameMap.TryGetValue(value, out string name))
+        {
+            return name;
+        }
+
+        return "Unknown"; // 사전에 정의되지 않은 값의 경우
     }
 
 }
