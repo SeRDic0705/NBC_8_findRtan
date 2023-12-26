@@ -8,6 +8,7 @@ public class card : MonoBehaviour
     public Animator anim;
     public AudioClip flip;
     public AudioSource audioSource;
+    float flipTime;
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +32,9 @@ public class card : MonoBehaviour
         if (gameManager.I.firstCard == null)
         {
             gameManager.I.firstCard = gameObject;
+            //처음 카드 선택한 시간
+            flipTime = Time.time;
+            Invoke("closeCardInvoke", 5.0f);
         }
         else
         {
