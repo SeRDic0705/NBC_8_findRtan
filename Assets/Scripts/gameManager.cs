@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
 public class gameManager : MonoBehaviour
@@ -32,6 +33,8 @@ public class gameManager : MonoBehaviour
 
     int mCnt = 0;
     private bool isPlay;
+
+    public bool dataSaveWithFail;
 
     void Awake()
     {
@@ -191,7 +194,30 @@ public class gameManager : MonoBehaviour
         {
             remainTimeTxt.text = time.ToString("N2");
             matchCnt.text = mCnt.ToString();
-            scoreTxt.text = (50 - mCnt).ToString();
+
+            // calculate score & save
+            int score = (50 - mCnt);
+
+            // code for to save score test
+            if (dataSaveWithFail)
+            {
+                string difficulty = NowDifficulty.GetComponent<nowDifficulty>().difficulty;
+                float savedScore = 0f;
+                if (difficulty == "Easy") savedScore = PlayerPrefs.GetFloat("EasyScore", 0f);
+                if (difficulty == "Normal") savedScore = PlayerPrefs.GetFloat("NormalScore", 0f);
+                if (difficulty == "Hard") savedScore = PlayerPrefs.GetFloat("HardScore", 0f);
+                if (savedScore < score)
+                {
+                    if (difficulty == "Easy") PlayerPrefs.SetFloat("EasyScore", score);
+                    if (difficulty == "Normal") PlayerPrefs.SetFloat("NormalScore", score);
+                    if (difficulty == "Hard") PlayerPrefs.SetFloat("HardScore", score);
+                    PlayerPrefs.Save();
+                }
+            }
+
+
+            scoreTxt.text = score.ToString();
+
             endCanvas.SetActive(true);
             Time.timeScale = 0.0f;
         }
@@ -238,39 +264,20 @@ public class gameManager : MonoBehaviour
 
                 // calculate score & save
                 int score = (50 - mCnt + (int)Math.Round(time));
-                //if (time > 0.0f)
-                if (true)
+                string difficulty = NowDifficulty.GetComponent<nowDifficulty>().difficulty;
+                float savedScore = 0f;
+                if (difficulty == "Easy") savedScore = PlayerPrefs.GetFloat("EasyScore", 0f);
+                if (difficulty == "Normal") savedScore = PlayerPrefs.GetFloat("NormalScore", 0f);
+                if (difficulty == "Hard") savedScore = PlayerPrefs.GetFloat("HardScore", 0f);
+                if (savedScore < score)
                 {
-                    string difficulty = NowDifficulty.GetComponent<nowDifficulty>().difficulty;
-                    if (difficulty == "Easy")
-                    {
-                        float savedScore = PlayerPrefs.GetFloat("EasyScore", 0f);
-                        if (savedScore < score)
-                        {
-                            PlayerPrefs.SetFloat("EasyScore", score);
-                            PlayerPrefs.Save();
-                        }
-                    }
-                    if (difficulty == "Normal")
-                    {
-                        float savedScore = PlayerPrefs.GetFloat("NormalScore", 0f);
-                        if (savedScore < score)
-                        {
-                            PlayerPrefs.SetFloat("NormalScore", score);
-                            PlayerPrefs.Save();
-                        }
-                    }
-                    if (difficulty == "Hard")
-                    {
-                        float savedScore = PlayerPrefs.GetFloat("HardScore", 0f);
-                        if (savedScore < score)
-                        {
-                            PlayerPrefs.SetFloat("HardScore", score);
-                            PlayerPrefs.Save();
-                        }
-                    }
+                    if (difficulty == "Easy") PlayerPrefs.SetFloat("EasyScore", score);
+                    if (difficulty == "Normal") PlayerPrefs.SetFloat("NormalScore", score);
+                    if (difficulty == "Hard") PlayerPrefs.SetFloat("HardScore", score);
+                    PlayerPrefs.Save();
                 }
                 scoreTxt.text = score.ToString();
+
                 endCanvas.SetActive(true);
                 Time.timeScale = 0.0f;
             }
