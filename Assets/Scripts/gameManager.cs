@@ -45,17 +45,34 @@ public class gameManager : MonoBehaviour
             images = new int[10]; // Easy 난이도는 10개 이미지
             for (int i = 0; i < images.Length / 2; i++)
             {
-                images[2 * i] = i;
-                images[2 * i + 1] = i;
+                // 인당 준비된 세 종류 카드 중 랜덤하게 하나씩 선택
+                int randomValue = UnityEngine.Random.Range(0, 3);
+                images[2 * i] = i + randomValue;
+                images[2 * i + 1] = i + randomValue;
             }
         }
         else if (difficulty == "Normal")
         {
             images = new int[20]; // Normal 난이도는 20개 이미지
+            
+            // 인당 준비된 세 종류 카드 중 앞 두개 카드 선택.(랜덤하게 선택하기엔 아이디어부족+코드 길어짐)
+            int value = 0; // 실제 images 배열에 넣을 값
+
             for (int i = 0; i < images.Length / 2; i++)
             {
-                images[2 * i] = i;
-                images[2 * i + 1] = i;
+                // 배열에 값을 할당
+                images[2 * i] = value;
+                images[2 * i + 1] = value;
+
+                // 다음 값으로 증가시킴. 2, 5, 8, 11, 14는 건너뛰기
+                if (value == 1 || value == 4 || value == 7 || value == 10 || value == 13)
+                {
+                    value += 2; // 2, 5, 8, 11, 14를 건너뛰기 위해 2 증가
+                }
+                else
+                {
+                    value += 1; // 그 외에는 1 증가
+                }
             }
         }
         else // Hard 또는 기타
