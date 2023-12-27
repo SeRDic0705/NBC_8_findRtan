@@ -26,6 +26,11 @@ public class selectDifficulty : MonoBehaviour
 
     public GameObject NowDifficulty;
 
+    private void Awake()
+    {
+        Time.timeScale = 1.0f;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -54,7 +59,7 @@ public class selectDifficulty : MonoBehaviour
             NormalColors.selectedColor = Color.gray;
             NormalBtn.colors = NormalColors;
             NormalScoreImg.color = Color.gray;
-            NormalScoreText.text = "Easy "+ canNormal.ToString("F0") + " pt ↑";
+            NormalScoreText.text = "Easy " + canNormal.ToString("F0") + " pt ↑";
         }
         if (normalScore < canHard)
         {
@@ -81,7 +86,7 @@ public class selectDifficulty : MonoBehaviour
     public void NormalClick()
     {
         // Easy가 {CanNormal}점 이상일 경우 Normal 진입
-        if(easyScore > canNormal)
+        if (easyScore > canNormal)
         {
             audiomanager.GetComponent<audioManager>().ChangeBGM(2);
             NowDifficulty.GetComponent<nowDifficulty>().difficulty = "Normal";
@@ -92,7 +97,7 @@ public class selectDifficulty : MonoBehaviour
     public void HardClick()
     {
         // Normal이 {CanHard}점 이상일 경우 Hard 진입
-        if(normalScore > canHard)
+        if (normalScore > canHard)
         {
             audiomanager.GetComponent<audioManager>().ChangeBGM(3);
             NowDifficulty.GetComponent<nowDifficulty>().difficulty = "Hard";
