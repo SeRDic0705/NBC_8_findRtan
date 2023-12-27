@@ -17,7 +17,7 @@ public class gameManager : MonoBehaviour
     public GameObject endCanvas;
     public GameObject endText;
     public GameObject card;
-    public static gameManager I;
+    public static gameManager instance;
     public GameObject firstCard;
     public GameObject secondCard;
     public AudioSource audioSource;
@@ -36,11 +36,13 @@ public class gameManager : MonoBehaviour
     int mCnt = 0;
     private bool isPlay;
 
+    public bool isLock = false;
+
     public bool dataSaveWithFail;
 
     void Awake()
     {
-        I = this;
+        instance = this;
     }
     void Textfalse()
     {
@@ -314,6 +316,7 @@ public class gameManager : MonoBehaviour
 
         firstCard = null;
         secondCard = null;
+        //this.isLock = false;
     }
 
 }
