@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
 public class gameManager : MonoBehaviour
@@ -30,8 +31,12 @@ public class gameManager : MonoBehaviour
     public GameObject NowDifficulty;
     public audioManager audiomanager;
 
+    int cardCnt = 0;
+
     int mCnt = 0;
     private bool isPlay;
+
+    public bool dataSaveWithFail;
 
     void Awake()
     {
@@ -56,47 +61,47 @@ public class gameManager : MonoBehaviour
         NowDifficulty = GameObject.Find("NowDifficulty");
         string difficulty = NowDifficulty.GetComponent<nowDifficulty>().difficulty;
 
+
         // Easy : 10 Cards(5 Types)
         if (difficulty == "Easy")
         {
             images = new int[10];
-            for (int i = 0; i < images.Length / 2; i++)
+            cardCnt = 10;
+
+            for (int i = 0; i < 5; i++)
             {
-                int randomValue = UnityEngine.Random.Range(0, 3);
-                images[2 * i] = i + randomValue;
-                images[2 * i + 1] = i + randomValue;
+                images[2 * i] = (i * 3) + 1;
+                images[2 * i + 1] = (i * 3) + 1;
             }
         }
         // Normal : 20 Cards(10 Types)
         else if (difficulty == "Normal")
         {
             images = new int[20];
+            cardCnt = 20;
 
-            int value = 0;
-
-            for (int i = 0; i < images.Length / 2; i++)
+            for (int i = 0; i < 5; i++)
             {
-                images[2 * i] = value;
-                images[2 * i + 1] = value;
-
-                if (value == 1 || value == 4 || value == 7 || value == 10 || value == 13)
-                {
-                    value += 2;
-                }
-                else
-                {
-                    value += 1;
-                }
+                images[4 * i] = (i * 3) + 1;
+                images[4 * i + 1] = (i * 3) + 1;
+                images[4 * i + 2] = (i * 3) + 2;
+                images[4 * i + 3] = (i * 3) + 2;
             }
         }
         // Hard : 30 Cards(15 Types)
         else
         {
             images = new int[30];
-            for (int i = 0; i < images.Length / 2; i++)
+            cardCnt = 30;
+
+            for (int i = 0; i < 5; i++)
             {
-                images[2 * i] = i;
-                images[2 * i + 1] = i;
+                images[6 * i] = (i * 3) + 1;
+                images[6 * i + 1] = (i * 3) + 1;
+                images[6 * i + 2] = (i * 3) + 2;
+                images[6 * i + 3] = (i * 3) + 2;
+                images[6 * i + 4] = (i * 3) + 3;
+                images[6 * i + 5] = (i * 3) + 3;
             }
         }
 
@@ -192,11 +197,37 @@ public class gameManager : MonoBehaviour
             timeText.color = Color.red;
         }
 
-        if (time < 0.0f)
+        if (time <= 0.0f)
         {
+            // time set zero
+            time = 0f;
+
             remainTimeTxt.text = time.ToString("N2");
             matchCnt.text = mCnt.ToString();
-            scoreTxt.text = (50 - mCnt).ToString();
+
+            // calculate score & save
+            int score = (50 - mCnt);
+
+            // code for to save score test
+            if (dataSaveWithFail)
+            {
+                string difficulty = NowDifficulty.GetComponent<nowDifficulty>().difficulty;
+                float savedScore = 0f;
+                if (difficulty == "Easy") savedScore = PlayerPrefs.GetFloat("EasyScore", 0f);
+                if (difficulty == "Normal") savedScore = PlayerPrefs.GetFloat("NormalScore", 0f);
+                if (difficulty == "Hard") savedScore = PlayerPrefs.GetFloat("HardScore", 0f);
+                if (savedScore < score)
+                {
+                    if (difficulty == "Easy") PlayerPrefs.SetFloat("EasyScore", score);
+                    if (difficulty == "Normal") PlayerPrefs.SetFloat("NormalScore", score);
+                    if (difficulty == "Hard") PlayerPrefs.SetFloat("HardScore", score);
+                    PlayerPrefs.Save();
+                }
+            }
+
+
+            scoreTxt.text = score.ToString();
+
             endCanvas.SetActive(true);
             Time.timeScale = 0.0f;
         }
@@ -213,6 +244,7 @@ public class gameManager : MonoBehaviour
             audioSource.PlayOneShot(match);
             firstCard.GetComponent<card>().destroyCard();
             secondCard.GetComponent<card>().destroyCard();
+            cardCnt -= 2;
             NTxt.SetActive(true);
             if (int.Parse(firstCardImage.Substring(5)) >= 13)
             {
@@ -235,14 +267,36 @@ public class gameManager : MonoBehaviour
                 nameText.text = "김성우";
             }
             Invoke("Textfalse", 0.8f);
-            int cardsLeft = GameObject.Find("cards").transform.childCount;
-            if (cardsLeft == 2)
+
+            //int cardsLeft = GameObject.Find("cards").transform.childCount;
+            //if (cardsLeft == 2)
+
+            // New type end point (cardLeft==2  ->  cardCnt==0)
+            if (cardCnt == 0)
             {
-                remainTimeTxt.text = time.ToString("N2");
-                matchCnt.text = mCnt.ToString();
-                scoreTxt.text = (50 - mCnt + Math.Round(time)).ToString();
-                endCanvas.SetActive(true);
                 Time.timeScale = 0.0f;
+                timeText.text = time.ToString("N2");
+                remainTimeTxt.text = time.ToString("N2");
+
+                matchCnt.text = mCnt.ToString();
+
+                // calculate score & save
+                int score = (50 - mCnt + (int)Math.Round(time));
+                string difficulty = NowDifficulty.GetComponent<nowDifficulty>().difficulty;
+                float savedScore = 0f;
+                if (difficulty == "Easy") savedScore = PlayerPrefs.GetFloat("EasyScore", 0f);
+                if (difficulty == "Normal") savedScore = PlayerPrefs.GetFloat("NormalScore", 0f);
+                if (difficulty == "Hard") savedScore = PlayerPrefs.GetFloat("HardScore", 0f);
+                if (savedScore < score)
+                {
+                    if (difficulty == "Easy") PlayerPrefs.SetFloat("EasyScore", score);
+                    if (difficulty == "Normal") PlayerPrefs.SetFloat("NormalScore", score);
+                    if (difficulty == "Hard") PlayerPrefs.SetFloat("HardScore", score);
+                    PlayerPrefs.Save();
+                }
+                scoreTxt.text = score.ToString();
+
+                endCanvas.SetActive(true);
             }
         }
         else
