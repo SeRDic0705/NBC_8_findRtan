@@ -177,7 +177,7 @@ public class gameManager : MonoBehaviour
 
 
                 float x = (i / 6) * 1.3f - 2.6f;
-                float y = (i % 6) * 1.3f - 3.6f;
+                float y = (i % 6) * 1.3f - 4.3f;
 
                 GameObject newCard = Instantiate(card, new Vector3(x, y, 0), Quaternion.identity);
                 newCard.transform.parent = GameObject.Find("cards").transform;
@@ -313,10 +313,6 @@ public class gameManager : MonoBehaviour
             time -= 3.0f;
 
         }
-
-        firstCard = null;
-        secondCard = null;
-        //this.isLock = false;
     }
 
 }

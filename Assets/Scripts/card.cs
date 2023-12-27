@@ -16,6 +16,8 @@ public class card : MonoBehaviour
 
     private Vector3 pos;
 
+    private bool isSelf = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,9 +27,11 @@ public class card : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(gameManager.instance.isLock) {
+        if(!isSelf){
+            if(gameManager.instance.isLock) {
             btn.interactable = false;
         }else btn.interactable = true;
+        }
     }
 
 
@@ -43,10 +47,13 @@ public class card : MonoBehaviour
 
     public void openCard()
     {
+        isSelf = true;
+        btn.interactable = false;
         audioSource.PlayOneShot(flip);
         anim.SetBool("isOpen", true);
         transform.Find("front").gameObject.SetActive(true);
         transform.Find("back").gameObject.SetActive(false);
+
         
         if (gameManager.instance.firstCard == null)
         {
@@ -72,6 +79,8 @@ public class card : MonoBehaviour
     {
         Destroy(gameObject);
         gameManager.instance.isLock = false;
+        gameManager.instance.firstCard = null;
+        gameManager.instance.secondCard = null;
     }
 
     public void closeCard()
@@ -85,5 +94,7 @@ public class card : MonoBehaviour
         anim.SetBool("isOpen", false);
         transform.Find("front").gameObject.SetActive(false);
         gameManager.instance.isLock = false;
+        gameManager.instance.firstCard = null;
+        gameManager.instance.secondCard = null;
     }
 }
