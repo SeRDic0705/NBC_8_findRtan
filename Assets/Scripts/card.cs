@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class card : MonoBehaviour
 {
@@ -12,61 +11,61 @@ public class card : MonoBehaviour
     public AudioSource audioSource;
     float flipTime;
 
-    private Button btn;
-
     private Vector3 pos;
 
-    private bool isSelf = false;
+    private bool clickSecondCard; // check for close4sec
 
     // Start is called before the first frame update
     void Start()
     {
-        btn = this.GetComponent<Button>();
+        //anim.SetTrigger("Start");
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(!isSelf){
-            if(gameManager.instance.isLock) {
-            btn.interactable = false;
-        }else btn.interactable = true;
+        // check for close4sec
+        if (gameManager.I.firstCard != gameObject)
+        {
+            clickSecondCard = true;
         }
+
     }
 
 
-    public void shuffle() {
-        if(this.pos == null) {
+    public void shuffle()
+    {
+        if (this.pos == null)
+        {
             this.pos = this.transform.position;
             this.transform.position = new Vector3(0, 0, 0);
         }
-        else{
-            this.transform.Translate(pos*2);
+        else
+        {
+            //this.transform.Translate(pos*2);
         }
     }
 
     public void openCard()
     {
-        isSelf = true;
-        btn.interactable = false;
         audioSource.PlayOneShot(flip);
         anim.SetBool("isOpen", true);
         transform.Find("front").gameObject.SetActive(true);
         transform.Find("back").gameObject.SetActive(false);
 
-        
-        if (gameManager.instance.firstCard == null)
+        if (gameManager.I.firstCard == null)
         {
-            gameManager.instance.firstCard = gameObject;
+            gameManager.I.firstCard = gameObject;
+
             //처음 카드 선택한 시간
             flipTime = Time.time;
-            Invoke("closeCardInvoke", 5.0f);
+            Invoke("closeCard4sec", 4.0f);
         }
         else
         {
-            gameManager.instance.isLock = true;
-            gameManager.instance.secondCard = gameObject;
-            gameManager.instance.isMatched();
+            gameManager.I.secondCard = gameObject;
+
+            gameManager.I.isMatched();
         }
     }
 
@@ -78,9 +77,6 @@ public class card : MonoBehaviour
     void destroyCardInvoke()
     {
         Destroy(gameObject);
-        gameManager.instance.isLock = false;
-        gameManager.instance.firstCard = null;
-        gameManager.instance.secondCard = null;
     }
 
     public void closeCard()
@@ -93,8 +89,19 @@ public class card : MonoBehaviour
         transform.Find("back").GetComponent<SpriteRenderer>().color = new Color(255f / 69f, 170f / 255f, 169f / 255f);
         anim.SetBool("isOpen", false);
         transform.Find("front").gameObject.SetActive(false);
-        gameManager.instance.isLock = false;
-        gameManager.instance.firstCard = null;
-        gameManager.instance.secondCard = null;
+    }
+    void closeCard4sec()
+    {
+        if (clickSecondCard == true)
+        {
+            clickSecondCard = false;
+        }
+        else
+        {
+            transform.Find("back").GetComponent<SpriteRenderer>().color = new Color(255f / 69f, 170f / 255f, 169f / 255f);
+            anim.SetBool("isOpen", false);
+            transform.Find("front").gameObject.SetActive(false);
+            gameManager.I.firstCard = null;
+        }
     }
 }
