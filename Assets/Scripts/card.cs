@@ -48,7 +48,7 @@ public class card : MonoBehaviour
             gameManager.I.firstCard = gameObject;
             //처음 카드 선택한 시간
             flipTime = Time.time;
-            Invoke("closeCardInvoke", 5.0f);
+            Invoke("closeCardInvoke", 4.0f);
         }
         else
         {
@@ -77,5 +77,6 @@ public class card : MonoBehaviour
         transform.Find("back").GetComponent<SpriteRenderer>().color = new Color(255f / 69f, 170f / 255f, 169f / 255f);
         anim.SetBool("isOpen", false);
         transform.Find("front").gameObject.SetActive(false);
+        gameManager.I.firstCard = null;
     }
 }
