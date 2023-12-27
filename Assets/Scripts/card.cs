@@ -43,10 +43,12 @@ public class card : MonoBehaviour
 
     public void openCard()
     {
+        btn.interactable = false;
         audioSource.PlayOneShot(flip);
         anim.SetBool("isOpen", true);
         transform.Find("front").gameObject.SetActive(true);
         transform.Find("back").gameObject.SetActive(false);
+
         
         if (gameManager.instance.firstCard == null)
         {
@@ -72,6 +74,8 @@ public class card : MonoBehaviour
     {
         Destroy(gameObject);
         gameManager.instance.isLock = false;
+        gameManager.instance.firstCard = null;
+        gameManager.instance.secondCard = null;
     }
 
     public void closeCard()
@@ -85,5 +89,7 @@ public class card : MonoBehaviour
         anim.SetBool("isOpen", false);
         transform.Find("front").gameObject.SetActive(false);
         gameManager.instance.isLock = false;
+        gameManager.instance.firstCard = null;
+        gameManager.instance.secondCard = null;
     }
 }
