@@ -313,10 +313,6 @@ public class gameManager : MonoBehaviour
             time -= 3.0f;
 
         }
-
-        firstCard = null;
-        secondCard = null;
-        //this.isLock = false;
     }
 
 }
