@@ -146,7 +146,6 @@ public class gameManager : MonoBehaviour
 
                 var spriteName = sprites[images[i]].name;
                 newCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(spriteName);
-                newCard.transform.Find("front").GetComponent<SpriteRenderer>().transform.localScale = new Vector3(1.2f, 1.2f, 0);
 
 
             }
@@ -165,7 +164,6 @@ public class gameManager : MonoBehaviour
 
                 var spriteName = sprites[images[i]].name;
                 newCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(spriteName);
-                newCard.transform.Find("front").GetComponent<SpriteRenderer>().transform.localScale = new Vector3(1.2f, 1.2f, 0);
             }
 
         }
@@ -184,7 +182,6 @@ public class gameManager : MonoBehaviour
 
                 var spriteName = sprites[images[i]].name;
                 newCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(spriteName);
-                newCard.transform.Find("front").GetComponent<SpriteRenderer>().transform.localScale = new Vector3(1.2f, 1.2f, 0);
             }
         }
     }
