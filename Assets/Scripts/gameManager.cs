@@ -122,8 +122,7 @@ public class gameManager : MonoBehaviour
         {
             for (int i = 0; i < 10; i++)
             {
-                GameObject newCard = Instantiate(card);
-                newCard.transform.parent = GameObject.Find("cards").transform;
+
 
                 float x;
                 float y;
@@ -140,11 +139,16 @@ public class gameManager : MonoBehaviour
                     x = ((i - 1) % 3) * 1.3f - 1.3f;
                     y = ((i - 1) / 3) * 1.3f - 2.3f;
                 }
-                newCard.transform.position = new Vector3(x, y, 0);
+
+                GameObject newCard = Instantiate(card, new Vector3(x, y, 0), Quaternion.identity);
+                newCard.transform.parent = GameObject.Find("cards").transform;
+
 
                 var spriteName = sprites[images[i]].name;
                 newCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(spriteName);
                 newCard.transform.Find("front").GetComponent<SpriteRenderer>().transform.localScale = new Vector3(1.2f, 1.2f, 0);
+
+
             }
         }
         // Set Card Position & Get sprite : Normal
@@ -152,12 +156,12 @@ public class gameManager : MonoBehaviour
         {
             for (int i = 0; i < 20; i++)
             {
-                GameObject newCard = Instantiate(card);
-                newCard.transform.parent = GameObject.Find("cards").transform;
 
                 float x = (i / 5) * 1.3f - 2.6f + 0.65f;
                 float y = (i % 5) * 1.3f - 3.6f;
-                newCard.transform.position = new Vector3(x, y, 0);
+
+                GameObject newCard = Instantiate(card, new Vector3(x, y, 0), Quaternion.identity);
+                newCard.transform.parent = GameObject.Find("cards").transform;
 
                 var spriteName = sprites[images[i]].name;
                 newCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(spriteName);
@@ -170,12 +174,13 @@ public class gameManager : MonoBehaviour
         {
             for (int i = 0; i < 30; i++)
             {
-                GameObject newCard = Instantiate(card);
-                newCard.transform.parent = GameObject.Find("cards").transform;
+
 
                 float x = (i / 6) * 1.3f - 2.6f;
                 float y = (i % 6) * 1.3f - 3.6f;
-                newCard.transform.position = new Vector3(x, y, 0);
+
+                GameObject newCard = Instantiate(card, new Vector3(x, y, 0), Quaternion.identity);
+                newCard.transform.parent = GameObject.Find("cards").transform;
 
                 var spriteName = sprites[images[i]].name;
                 newCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(spriteName);

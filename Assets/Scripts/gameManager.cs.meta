@@ -3,7 +3,25 @@ guid: 554b04a4c81003a44a825d380e703839
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - timeText: {instanceID: 0}
+  - matchCnt: {instanceID: 0}
+  - scoreTxt: {instanceID: 0}
+  - remainTimeTxt: {instanceID: 0}
+  - endCanvas: {instanceID: 0}
+  - endText: {instanceID: 0}
+  - card: {instanceID: 0}
+  - firstCard: {instanceID: 0}
+  - secondCard: {instanceID: 0}
+  - audioSource: {instanceID: 0}
+  - match: {instanceID: 0}
+  - wrong: {instanceID: 0}
+  - shuffle: {instanceID: 0}
+  - nameText: {instanceID: 0}
+  - NTxt: {instanceID: 0}
+  - FailText: {instanceID: 0}
+  - NowDifficulty: {instanceID: 0}
+  - audiomanager: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

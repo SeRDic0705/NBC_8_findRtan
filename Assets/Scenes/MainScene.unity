@@ -822,7 +822,7 @@ MonoBehaviour:
   remainTimeTxt: {fileID: 240628073}
   endCanvas: {fileID: 242725514}
   endText: {fileID: 761539550}
-  card: {fileID: 4825587092892656526, guid: 069549b7eef3ec14fa2ea11cfd9df66c, type: 3}
+  card: {fileID: 821865409573923632, guid: 069549b7eef3ec14fa2ea11cfd9df66c, type: 3}
   firstCard: {fileID: 0}
   secondCard: {fileID: 0}
   audioSource: {fileID: 852934819}
