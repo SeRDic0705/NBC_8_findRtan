@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class card : MonoBehaviour
@@ -10,16 +11,29 @@ public class card : MonoBehaviour
     public AudioSource audioSource;
     float flipTime;
 
+    private Vector3 pos;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        //anim.SetTrigger("Start");
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+
+    public void shuffle() {
+        if(this.pos == null) {
+            this.pos = this.transform.position;
+            this.transform.position = new Vector3(0, 0, 0);
+        }
+        else{
+            //this.transform.Translate(pos*2);
+        }
     }
 
     public void openCard()
