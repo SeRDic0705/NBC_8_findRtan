@@ -29,7 +29,7 @@ public class card : MonoBehaviour
         {
             clickSecondCard = true;
         }
-        
+
     }
 
 
@@ -49,7 +49,7 @@ public class card : MonoBehaviour
         anim.SetBool("isOpen", true);
         transform.Find("front").gameObject.SetActive(true);
         transform.Find("back").gameObject.SetActive(false);
-        
+
         if (gameManager.I.firstCard == null)
         {
             gameManager.I.firstCard = gameObject;
