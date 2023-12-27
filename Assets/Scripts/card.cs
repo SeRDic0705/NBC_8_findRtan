@@ -48,7 +48,7 @@ public class card : MonoBehaviour
             gameManager.I.firstCard = gameObject;
             //처음 카드 선택한 시간
             flipTime = Time.time;
-            Invoke("closeCardInvoke", 4.0f);
+            Invoke("closeCard", 4.0f);
         }
         else
         {
