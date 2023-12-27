@@ -70,8 +70,8 @@ public class gameManager : MonoBehaviour
 
             for (int i = 0; i < 5; i++)
             {
-                images[2 * i] = (i * 3) + 1;
-                images[2 * i + 1] = (i * 3) + 1;
+                images[2 * i] = (i * 3);
+                images[2 * i + 1] = (i * 3);
             }
         }
         // Normal : 20 Cards(10 Types)
@@ -82,10 +82,10 @@ public class gameManager : MonoBehaviour
 
             for (int i = 0; i < 5; i++)
             {
-                images[4 * i] = (i * 3) + 1;
-                images[4 * i + 1] = (i * 3) + 1;
-                images[4 * i + 2] = (i * 3) + 2;
-                images[4 * i + 3] = (i * 3) + 2;
+                images[4 * i] = (i * 3);
+                images[4 * i + 1] = (i * 3);
+                images[4 * i + 2] = (i * 3) + 1;
+                images[4 * i + 3] = (i * 3) + 1;
             }
         }
         // Hard : 30 Cards(15 Types)
@@ -96,12 +96,12 @@ public class gameManager : MonoBehaviour
 
             for (int i = 0; i < 5; i++)
             {
-                images[6 * i] = (i * 3) + 1;
-                images[6 * i + 1] = (i * 3) + 1;
-                images[6 * i + 2] = (i * 3) + 2;
-                images[6 * i + 3] = (i * 3) + 2;
-                images[6 * i + 4] = (i * 3) + 3;
-                images[6 * i + 5] = (i * 3) + 3;
+                images[6 * i] = (i * 3);
+                images[6 * i + 1] = (i * 3);
+                images[6 * i + 2] = (i * 3) + 1;
+                images[6 * i + 3] = (i * 3) + 1;
+                images[6 * i + 4] = (i * 3) + 2;
+                images[6 * i + 5] = (i * 3) + 2;
             }
         }
 
