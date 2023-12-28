@@ -10,7 +10,6 @@ public class card : MonoBehaviour
     public Animator anim;
     public AudioClip flip;
     public AudioSource audioSource;
-    float flipTime;
 
     private Button btn;
 
@@ -57,13 +56,12 @@ public class card : MonoBehaviour
         
         if (gameManager.instance.firstCard == null)
         {
+            Debug.Log(transform.Find("front").GetComponent<SpriteRenderer>().sprite.name);
             gameManager.instance.firstCard = gameObject;
-            //처음 카드 선택한 시간
-            flipTime = Time.time;
-            Invoke("closeCardInvoke", 5.0f);
         }
         else
         {
+            Debug.Log(transform.Find("front").GetComponent<SpriteRenderer>().sprite.name);
             gameManager.instance.isLock = true;
             gameManager.instance.secondCard = gameObject;
             gameManager.instance.isMatched();
