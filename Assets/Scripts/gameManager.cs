@@ -309,8 +309,6 @@ public class gameManager : MonoBehaviour
             audioSource.PlayOneShot(wrong);
             firstCard.GetComponent<card>().closeCard();
             secondCard.GetComponent<card>().closeCard();
-            firstCard = null;
-            secondCard = null;
             FailText.SetActive(true);
             Invoke("Textfalse", 0.8f);
             time -= 3.0f;
