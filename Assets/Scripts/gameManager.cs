@@ -17,7 +17,7 @@ public class gameManager : MonoBehaviour
     public GameObject endCanvas;
     public GameObject endText;
     public GameObject card;
-    public static gameManager I;
+    public static gameManager instance;
     public GameObject firstCard;
     public GameObject secondCard;
     public AudioSource audioSource;
@@ -36,11 +36,13 @@ public class gameManager : MonoBehaviour
     int mCnt = 0;
     private bool isPlay;
 
+    public bool isLock = false;
+
     public bool dataSaveWithFail;
 
     void Awake()
     {
-        I = this;
+        instance = this;
     }
     void Textfalse()
     {
@@ -175,7 +177,7 @@ public class gameManager : MonoBehaviour
 
 
                 float x = (i / 6) * 1.3f - 2.6f;
-                float y = (i % 6) * 1.3f - 3.6f;
+                float y = (i % 6) * 1.3f - 4.3f;
 
                 GameObject newCard = Instantiate(card, new Vector3(x, y, 0), Quaternion.identity);
                 newCard.transform.parent = GameObject.Find("cards").transform;
@@ -311,9 +313,6 @@ public class gameManager : MonoBehaviour
             time -= 3.0f;
 
         }
-
-        firstCard = null;
-        secondCard = null;
     }
 
 }
