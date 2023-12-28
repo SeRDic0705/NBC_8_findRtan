@@ -95,6 +95,5 @@ public class card : MonoBehaviour
         transform.Find("front").gameObject.SetActive(false);
         isSelf = false;
         gameManager.instance.isLock = false;
-        Debug.Log("a");
     }
 }
