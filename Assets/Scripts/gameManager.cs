@@ -34,7 +34,6 @@ public class gameManager : MonoBehaviour
     int cardCnt = 0;
 
     int mCnt = 0;
-    float ftime = 0;
     private bool isPlay;
 
     public bool isLock = false;
@@ -195,15 +194,6 @@ public class gameManager : MonoBehaviour
         time -= Time.deltaTime;
         timeText.text = time.ToString("N2");
 
-        if(firstCard != null && secondCard == null) {
-            ftime += Time.deltaTime;
-            if(ftime >= 5.0f) {
-                firstCard.GetComponent<card>().closeCard();
-                firstCard = null;
-                ftime = 0f;
-            }
-        }
-
         if (!isPlay && time < 20.0f)
         {
             isPlay= true;
@@ -252,8 +242,6 @@ public class gameManager : MonoBehaviour
         mCnt += 1;
         string firstCardImage = firstCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite.name;
         string secondCardImage = secondCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite.name;
-
-        Debug.Log(firstCardImage + " " + secondCardImage);
 
         if (firstCardImage == secondCardImage)
         {
