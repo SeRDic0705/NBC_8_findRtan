@@ -242,6 +242,7 @@ public class gameManager : MonoBehaviour
         mCnt += 1;
         string firstCardImage = firstCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite.name;
         string secondCardImage = secondCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite.name;
+        firstCard.GetComponent<card>().check = false;
 
         if (firstCardImage == secondCardImage)
         {
@@ -308,6 +309,8 @@ public class gameManager : MonoBehaviour
             audioSource.PlayOneShot(wrong);
             firstCard.GetComponent<card>().closeCard();
             secondCard.GetComponent<card>().closeCard();
+            firstCard = null;
+            secondCard = null;
             FailText.SetActive(true);
             Invoke("Textfalse", 0.8f);
             time -= 3.0f;
