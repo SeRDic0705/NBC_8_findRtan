@@ -17,23 +17,12 @@ public class card : MonoBehaviour
     private Vector3 pos;
 
     private bool isSelf = false;
-
+    public bool check = false;
     // Start is called before the first frame update
     void Start()
     {
         btn = this.GetComponent<Button>();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if(!isSelf){
-            if(gameManager.instance.isLock) {
-            btn.interactable = false;
-        }else btn.interactable = true;
-        }
-    }
-
 
     public void shuffle() {
         if(this.pos == null) {
@@ -47,8 +36,10 @@ public class card : MonoBehaviour
 
     public void openCard()
     {
+        if (isSelf || gameManager.instance.isLock)
+            return;
+
         isSelf = true;
-        btn.interactable = false;
         audioSource.PlayOneShot(flip);
         anim.SetBool("isOpen", true);
         transform.Find("front").gameObject.SetActive(true);
@@ -60,7 +51,8 @@ public class card : MonoBehaviour
             gameManager.instance.firstCard = gameObject;
             //처음 카드 선택한 시간
             flipTime = Time.time;
-            Invoke("closeCardInvoke", 5.0f);
+            check = true;
+            Invoke("delaycloseCard", 5.0f);
         }
         else
         {
@@ -85,7 +77,15 @@ public class card : MonoBehaviour
 
     public void closeCard()
     {
+        isSelf = false;
         Invoke("closeCardInvoke", 1.0f);
+    }
+
+    public void delaycloseCard()
+    {
+        if (!check)
+            return;
+        closeCardInvoke();
     }
 
     void closeCardInvoke()

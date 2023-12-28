@@ -245,6 +245,7 @@ public class gameManager : MonoBehaviour
         mCnt += 1;
         string firstCardImage = firstCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite.name;
         string secondCardImage = secondCard.transform.Find("front").GetComponent<SpriteRenderer>().sprite.name;
+        firstCard.GetComponent<card>().check = false;
 
         if (firstCardImage == secondCardImage)
         {
