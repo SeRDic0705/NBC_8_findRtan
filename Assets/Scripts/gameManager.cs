@@ -67,6 +67,7 @@ public class gameManager : MonoBehaviour
         // Easy : 10 Cards(5 Types)
         if (difficulty == "Easy")
         {
+            time = 60.0f;
             images = new int[10];
             cardCnt = 10;
 
@@ -79,6 +80,7 @@ public class gameManager : MonoBehaviour
         // Normal : 20 Cards(10 Types)
         else if (difficulty == "Normal")
         {
+            time = 120.0f;
             images = new int[20];
             cardCnt = 20;
 
@@ -93,6 +95,7 @@ public class gameManager : MonoBehaviour
         // Hard : 30 Cards(15 Types)
         else
         {
+            time = 180.0f;
             images = new int[30];
             cardCnt = 30;
 
